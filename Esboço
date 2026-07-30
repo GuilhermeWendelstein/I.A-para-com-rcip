@@ -1,0 +1,46 @@
+# SmartShop AI - Sistema Inteligente de Recomendação de Produtos
+
+## Descrição do Problema
+
+Atualmente, muitas lojas virtuais exibem os mesmos produtos para todos os clientes, sem considerar seus interesses, preferências ou histórico de compras. Essa abordagem reduz a personalização da experiência de compra, dificultando que os consumidores encontrem produtos relevantes de forma rápida e eficiente.
+
+Como consequência, muitos clientes deixam de adquirir produtos que poderiam ser de seu interesse, aumentando a taxa de abandono da plataforma e reduzindo as vendas do comércio eletrônico. Esse problema afeta principalmente pequenas e médias lojas, que muitas vezes não possuem ferramentas inteligentes para personalizar as recomendações oferecidas aos seus usuários.
+
+O SmartShop AI propõe o desenvolvimento de um sistema de recomendação de produtos utilizando Inteligência Artificial. A solução será capaz de analisar dados de compras e comportamento dos clientes para identificar padrões de consumo e sugerir produtos personalizados, melhorando a experiência do usuário e auxiliando o aumento das vendas.
+
+---
+
+## Público / Contexto
+
+O projeto é destinado a lojas virtuais de pequeno e médio porte que desejam oferecer recomendações personalizadas aos seus clientes.
+
+O sistema será utilizado durante a navegação dos consumidores na plataforma de vendas, apresentando sugestões de produtos com base em seu histórico de compras ou em padrões identificados no comportamento de clientes semelhantes.
+
+---
+
+## Por que é tratável com IA?
+
+O problema é adequado para a aplicação de Inteligência Artificial porque envolve a identificação de padrões em grandes volumes de dados de compras e navegação dos usuários. Algoritmos de recomendação conseguem aprender quais produtos costumam ser adquiridos em conjunto e quais perfis de clientes apresentam comportamentos semelhantes.
+
+No Google Colab serão utilizadas bibliotecas de Python para analisar os dados e desenvolver um modelo de recomendação. O sistema utilizará dados públicos ou simulados, sem utilizar informações pessoais dos usuários, respeitando princípios éticos e de privacidade.
+
+---
+
+## Possíveis Fontes de Dados
+
+- Kaggle - E-commerce Behavior Dataset
+- Kaggle - Online Retail Dataset
+- Dados simulados de compras e produtos
+
+---
+
+## Backlog Inicial
+
+- [ ] Criar o repositório no GitHub.
+- [ ] Buscar e analisar um dataset de e-commerce.
+- [ ] Realizar o tratamento e limpeza dos dados.
+- [ ] Explorar os dados e identificar padrões de compra.
+- [ ] Desenvolver um algoritmo de recomendação de produtos.
+- [ ] Testar o modelo utilizando o Google Colab.
+- [ ] Avaliar a qualidade das recomendações.
+- [ ] Documentar o projeto e os resultados obtidos.
