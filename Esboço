@@ -34,10 +34,11 @@ No Google Colab serão utilizadas bibliotecas de Python para analisar os dados e
 
 ---
 
-## Backlog Inicial
+## Backlog Atualizado
 
-- [ ] Criar o repositório no GitHub.
-- [ ] Buscar e analisar um dataset de e-commerce.
+- [x] Criar o repositório no GitHub.
+- [x] Buscar possíveis datasets de e-commerce.
+- [ ] Analisar o dataset escolhido.
 - [ ] Realizar o tratamento e limpeza dos dados.
 - [ ] Explorar os dados e identificar padrões de compra.
 - [ ] Desenvolver um algoritmo de recomendação de produtos.
