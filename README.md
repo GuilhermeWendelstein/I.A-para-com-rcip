@@ -63,7 +63,10 @@ Outra limitação é o caso de novos usuários ou produtos. Quando ainda não ex
 
 Também será necessário ter cuidado com a privacidade dos dados. Por isso, inicialmente serão utilizados datasets públicos ou dados simulados, evitando informações pessoais reais dos usuários.
 
-Possíveis Fontes de Dados
+## Possíveis Fontes de Dados
+Kaggle - E-commerce Behavior Dataset
+Kaggle - Online Retail Dataset
+Dados simulados de compras e produtos
 ## Backlog Atualizado
 
 - [x] Crie o repositório no GitHub.
