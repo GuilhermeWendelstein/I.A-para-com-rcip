@@ -40,6 +40,7 @@ A base será utilizada para analisar padrões de compra que poderão ser utiliza
 As principais variáveis de entrada utilizadas pelo SmartShop AI serão os dados relacionados aos clientes, produtos e compras.
 
 **Entradas:**
+
 - CustomerID;
 - StockCode;
 - Description;
@@ -62,7 +63,7 @@ Saída: produtos que podem ser interessantes para esse cliente.
 
 ## Primeira Exploração dos Dados
 
-Nesta primeira análise serão observadas algumas informações básicas da base, como:
+Nesta primeira análise foram observadas algumas informações básicas da base, como:
 
 - Quantidade de registros;
 - Quantidade de produtos;
@@ -71,14 +72,14 @@ Nesta primeira análise serão observadas algumas informações básicas da base
 - Valores de quantidade;
 - Valores dos preços.
 
-Também serão calculadas algumas medidas estatísticas das variáveis numéricas:
+Também foram calculadas medidas estatísticas das variáveis numéricas:
 
 - Média;
 - Desvio padrão;
 - Valor mínimo;
 - Valor máximo.
 
-Para as variáveis categóricas serão observadas as frequências dos valores mais comuns.
+Para as variáveis categóricas foram observadas as frequências dos valores mais comuns.
 
 ## Medidas Estatísticas
 
@@ -89,22 +90,36 @@ A primeira análise da base apresentou os seguintes resultados:
 | Quantity | 9,55 | 218,08 | -80.995 | 80.995 |
 | UnitPrice | 4,61 | 96,76 | -11.062,06 | 38.970 |
 
-Esses valores mostram que existe uma grande variação tanto na quantidade de produtos quanto nos preços. Também existem valores negativos, que deverão ser analisados e tratados nas próximas etapas do projeto.
+Os resultados mostram uma grande variação na quantidade de produtos e nos preços. A presença de valores negativos também chama atenção, principalmente em `Quantity` e `UnitPrice`, indicando que existem registros que precisam ser analisados nas próximas etapas.
 
 ## Visualização Inicial
 
-Será utilizado um gráfico de barras mostrando os produtos que aparecem com maior frequência na base.
+Foi utilizado um **gráfico de barras** mostrando os produtos que aparecem com maior frequência na base.
 
-O objetivo do gráfico é facilitar a visualização dos produtos mais presentes nos registros de compras e ajudar a entender melhor o comportamento dos dados.
+O gráfico ajuda a visualizar quais produtos possuem maior quantidade de registros e permite observar quais itens aparecem com mais frequência nas compras.
 
-A visualização permite identificar quais produtos aparecem com maior frequência na base. Esses produtos possuem uma quantidade maior de registros de compra e podem indicar itens com maior procura. Essa informação poderá ser útil posteriormente no SmartShop AI, pois a frequência dos produtos pode ajudar na identificação de padrões e na geração de recomendações para os clientes.
+**Interpretação:** o gráfico mostra que alguns produtos aparecem muito mais vezes que outros na base. Esses produtos mais frequentes podem indicar itens com maior procura ou recorrência de compra. Essa informação pode ser útil para o SmartShop AI, pois os produtos mais frequentes podem aparecer com maior relevância nas análises e nas futuras recomendações.
 
-## Observações
+## Primeiras Observações sobre a Base
 
-Esta é uma primeira exploração da base. Os dados ainda não foram completamente limpos ou tratados.
+Durante a análise inicial foram identificados alguns pontos que precisam de atenção:
 
-Nesta atividade, o objetivo é conhecer a base, documentar suas variáveis e realizar uma análise inicial. O tratamento e a limpeza dos dados serão realizados nas próximas etapas do projeto.
+- Existem valores negativos em `Quantity`;
+- Existem valores negativos em `UnitPrice`;
+- Algumas informações podem estar ausentes, principalmente relacionadas aos clientes;
+- Alguns produtos aparecem com muito mais frequência que outros;
+- Os dados ainda não passaram por uma limpeza completa.
 
-Durante a análise inicial, também foram identificados valores negativos nas variáveis **Quantity** e **UnitPrice**. Esses valores precisam ser investigados para verificar se estão relacionados a cancelamentos, devoluções ou outras situações presentes na base.
+Esses pontos serão analisados e tratados nas próximas etapas do projeto, antes do desenvolvimento do modelo de recomendação.
 
-Também será importante verificar possíveis valores ausentes e registros que não sejam relevantes para o desenvolvimento do sistema de recomendação. Essas verificações serão realizadas durante as próximas etapas de tratamento dos dados.
+## Dicionário e Análise
+
+O dicionário de dados e a análise inicial foram documentados neste arquivo.
+
+O código utilizado para a exploração, as medidas estatísticas e a visualização está disponível no notebook do projeto no **Google Colab**.
+
+## Fonte dos Dados
+
+A base utilizada no projeto é o dataset **Online Retail**, disponibilizado pelo **UCI Machine Learning Repository**:
+
+[Online Retail - UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail)
