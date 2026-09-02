@@ -1,45 +1,53 @@
 # Dados - SmartShop AI
 
-## Base de Dados
+## 1. Base de Dados
 
-Para o SmartShop AI será utilizado o dataset **Online Retail**, disponibilizado pelo UCI Machine Learning Repository.
+O SmartShop AI utiliza o dataset **Online Retail**, disponibilizado pelo **UCI Machine Learning Repository**.
 
-A base possui informações sobre compras realizadas em uma loja de varejo online, incluindo produtos, quantidade comprada, preço, cliente, data da compra e país.
+A base contém registros de transações de uma empresa de varejo online do Reino Unido, com informações sobre produtos, quantidades, preços, clientes, datas das compras e países.
 
-A base será utilizada para analisar padrões de compra que poderão ser utilizados posteriormente no sistema de recomendação de produtos.
+O dataset possui **541.909 registros** e, no arquivo utilizado no projeto, **8 colunas**.
 
-## Origem da Base
+## 2. Origem da Base
 
 **Nome:** Online Retail
 
 **Fonte:** UCI Machine Learning Repository
 
-**Link:** [Online Retail - UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail)
+**Link:** https://archive.ics.uci.edu/dataset/352/online+retail
 
 **Licença:** CC BY 4.0
 
-**Data de acesso:** 20/08/2026
+**Data de acesso:** 30/08/2026
 
-**Forma de obtenção:** Download da base disponibilizada pela fonte original.
+**Forma de obtenção:** Base disponibilizada pela fonte original e carregada no projeto por meio do Python.
 
-## Dicionário de Dados
+A base contém transações realizadas entre 01/12/2010 e 09/12/2011.
 
-| Variável | Descrição | Tipo | Unidade / Valores possíveis | Entrada ou Saída? | Observações |
-|---|---|---|---|---|---|
-| InvoiceNo | Número da compra/fatura | Categórica nominal | Código da compra | Entrada | Identifica uma transação |
-| StockCode | Código do produto | Categórica nominal | Código do produto | Entrada | Identifica o produto |
-| Description | Nome do produto | Categórica nominal | Texto | Entrada | Descrição do produto |
-| Quantity | Quantidade comprada | Numérica discreta | Número de unidades | Entrada | Quantidade de itens da compra |
-| InvoiceDate | Data e hora da compra | Categórica nominal | Data e horário | Entrada | Indica quando a compra aconteceu |
-| UnitPrice | Preço unitário | Numérica contínua | Valor em libra (£) | Entrada | Preço de uma unidade |
-| CustomerID | Identificação do cliente | Categórica nominal | Código do cliente | Entrada | Identifica o cliente |
-| Country | País do cliente | Categórica nominal | Nome do país | Entrada | País relacionado à compra |
+## 3. Dicionário de Dados
 
-## Variáveis de Entrada e Saída
+| Variável | Descrição | Tipo | Unidade / Valores possíveis | Entrada ou Saída? |
+|---|---|---|---|---|
+| InvoiceNo | Número da compra/fatura | Categórica nominal | Código da compra | Entrada |
+| StockCode | Código do produto | Categórica nominal | Código do produto | Entrada |
+| Description | Nome do produto | Categórica nominal | Texto | Entrada |
+| Quantity | Quantidade comprada | Numérica discreta | Número de unidades | Entrada |
+| InvoiceDate | Data e hora da compra | Temporal | Data e horário | Entrada |
+| UnitPrice | Preço unitário | Numérica contínua | Valor em libra (£) | Entrada |
+| CustomerID | Identificação do cliente | Categórica nominal | Código do cliente | Entrada |
+| Country | País do cliente | Categórica nominal | Nome do país | Entrada |
 
-As principais variáveis de entrada utilizadas pelo SmartShop AI serão os dados relacionados aos clientes, produtos e compras.
+### Observação sobre InvoiceDate
 
-**Entradas:**
+No carregamento inicial realizado no Python, `InvoiceDate` foi identificado como `object`. Apesar disso, seu significado é de data e hora da compra. A coluna deverá ser convertida para um formato adequado de data/hora durante o tratamento dos dados.
+
+## 4. Entradas e Saída Esperada
+
+O SmartShop AI é um projeto de **recomendação de produtos**.
+
+### Entradas
+
+As principais informações utilizadas serão:
 
 - CustomerID;
 - StockCode;
@@ -49,77 +57,83 @@ As principais variáveis de entrada utilizadas pelo SmartShop AI serão os dados
 - UnitPrice;
 - Country.
 
-Como o projeto é de **recomendação**, a base não possui uma variável de saída pronta.
+O `InvoiceNo` também poderá ser utilizado para identificar as transações e os cancelamentos.
 
-**Saída esperada:**
+### Saída esperada
 
-Uma lista de produtos recomendados para cada cliente, baseada nos padrões encontrados no histórico de compras.
+A saída esperada não existe pronta na base original.
 
-**Exemplo:**
+O sistema deverá gerar uma **lista ou ranking de produtos recomendados para cada cliente**, utilizando os padrões encontrados no histórico de compras.
 
-Entrada: histórico de compras de um cliente.
+### Exemplo
 
-Saída: produtos que podem ser interessantes para esse cliente.
+**Entrada:**
+Histórico de compras de um cliente.
 
-## Primeira Exploração dos Dados
+**Saída:**
+Ranking de produtos que podem ser relevantes para esse cliente.
 
-Nesta primeira análise foram observadas algumas informações básicas da base, como:
+## 5. Primeira Exploração dos Dados
 
-- Quantidade de registros;
-- Quantidade de produtos;
-- Quantidade de clientes;
-- Produtos mais frequentes;
-- Valores de quantidade;
-- Valores dos preços.
+A primeira análise foi realizada utilizando Python e teve como objetivo compreender a estrutura da base e identificar possíveis problemas de qualidade.
 
-Também foram calculadas medidas estatísticas das variáveis numéricas:
+Foram analisados:
 
-- Média;
-- Desvio padrão;
-- Valor mínimo;
-- Valor máximo.
+- quantidade de registros e variáveis;
+- valores ausentes;
+- registros duplicados;
+- quantidade de valores únicos;
+- tipos das variáveis;
+- quantidade de produtos, clientes e países;
+- valores de quantidade e preço;
+- produtos mais frequentes.
 
-Para as variáveis categóricas foram observadas as frequências dos valores mais comuns.
+## 6. Medidas Estatísticas
 
-## Medidas Estatísticas
+| Variável | Média | Mediana | Desvio padrão | Mínimo | Máximo |
+|---|---:|---:|---:|---:|---:|
+| Quantity | 9,55 | 3,00 | 218,08 | -80.995 | 80.995 |
+| UnitPrice | 4,61 | 2,08 | 96,76 | -11.062,06 | 38.970 |
 
-A primeira análise da base apresentou os seguintes resultados:
+Os resultados mostram uma grande variação nos valores de `Quantity` e `UnitPrice`. A diferença entre média e mediana e os valores extremos indicam a presença de registros que precisam ser investigados antes da utilização dos dados no modelo.
 
-| Variável | Média | Desvio padrão | Mínimo | Máximo |
-|---|---:|---:|---:|---:|
-| Quantity | 9,55 | 218,08 | -80.995 | 80.995 |
-| UnitPrice | 4,61 | 96,76 | -11.062,06 | 38.970 |
+## 7. Visualização Inicial
 
-Os resultados mostram uma grande variação na quantidade de produtos e nos preços. A presença de valores negativos também chama atenção, principalmente em `Quantity` e `UnitPrice`, indicando que existem registros que precisam ser analisados nas próximas etapas.
+Foi analisada a frequência dos produtos presentes na base.
 
-## Visualização Inicial
+Os cinco produtos com maior frequência foram:
 
-Foi utilizado um **gráfico de barras** mostrando os produtos que aparecem com maior frequência na base.
+1. WHITE HANGING HEART T-LIGHT HOLDER — 2.369
+2. REGENCY CAKESTAND 3 TIER — 2.200
+3. JUMBO BAG RED RETROSPOT — 2.159
+4. PARTY BUNTING — 1.727
+5. LUNCH BAG RED RETROSPOT — 1.638
 
-O gráfico ajuda a visualizar quais produtos possuem maior quantidade de registros e permite observar quais itens aparecem com mais frequência nas compras.
+A visualização mostra que alguns produtos aparecem com frequência muito maior que outros, indicando concentração das transações em determinados itens. Esse padrão poderá ser considerado posteriormente na construção do sistema de recomendação.
 
-**Interpretação:** o gráfico mostra que alguns produtos aparecem muito mais vezes que outros na base. Esses produtos mais frequentes podem indicar itens com maior procura ou recorrência de compra. Essa informação pode ser útil para o SmartShop AI, pois os produtos mais frequentes podem aparecer com maior relevância nas análises e nas futuras recomendações.
+## 8. Primeiras Observações
 
-## Primeiras Observações sobre a Base
+A análise inicial mostrou:
 
-Durante a análise inicial foram identificados alguns pontos que precisam de atenção:
+- 541.909 registros;
+- 8 variáveis;
+- 4.070 produtos diferentes;
+- 4.372 clientes identificados;
+- 38 países;
+- 5.268 linhas totalmente duplicadas;
+- 135.080 registros sem CustomerID;
+- 1.454 registros sem Description;
+- 10.624 registros com Quantity menor ou igual a zero;
+- 2.517 registros com UnitPrice menor ou igual a zero;
+- 9.288 registros identificados como cancelamentos.
 
-- Existem valores negativos em `Quantity`;
-- Existem valores negativos em `UnitPrice`;
-- Algumas informações podem estar ausentes, principalmente relacionadas aos clientes;
-- Alguns produtos aparecem com muito mais frequência que outros;
-- Os dados ainda não passaram por uma limpeza completa.
+Esses problemas serão analisados e tratados nas próximas etapas antes da construção do modelo de recomendação.
 
-Esses pontos serão analisados e tratados nas próximas etapas do projeto, antes do desenvolvimento do modelo de recomendação.
+## 9. Fonte
 
-## Dicionário e Análise
+Chen, D. (2015). **Online Retail**. UCI Machine Learning Repository.
 
-O dicionário de dados e a análise inicial foram documentados neste arquivo.
+DOI: https://doi.org/10.24432/C5BW33
 
-O código utilizado para a exploração, as medidas estatísticas e a visualização está disponível no notebook do projeto no **Google Colab**.
-
-## Fonte dos Dados
-
-A base utilizada no projeto é o dataset **Online Retail**, disponibilizado pelo **UCI Machine Learning Repository**:
-
-[Online Retail - UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail)
+Fonte oficial:
+https://archive.ics.uci.edu/dataset/352/online+retail
