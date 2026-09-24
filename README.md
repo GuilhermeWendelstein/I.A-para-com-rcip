@@ -12,21 +12,21 @@ O projeto propõe o desenvolvimento de um sistema de recomendação de produtos 
 
 O projeto é voltado para lojas virtuais de pequeno e médio porte que desejam oferecer recomendações personalizadas aos seus clientes.
 
-O sistema será utilizado como uma proposta acadêmica de recomendação de produtos, apresentando sugestões com base no histórico de compras e nos padrões identificados nos dados disponíveis.
+O sistema será utilizado durante a navegação dos consumidores na plataforma de vendas, apresentando sugestões de produtos com base no histórico de compras ou em padrões identificados no comportamento de clientes semelhantes.
 
 ## Por que é tratável com IA?
 
-O problema é adequado para a aplicação de Inteligência Artificial porque envolve a identificação de padrões em dados de compras. Esses padrões podem ser difíceis de identificar manualmente, principalmente quando existe uma grande quantidade de produtos e clientes.
+O problema é adequado para a aplicação de Inteligência Artificial porque envolve a identificação de padrões em dados de compras e comportamento dos clientes. Esses padrões podem ser difíceis de identificar manualmente, principalmente quando existe uma grande quantidade de produtos e clientes.
 
-Algoritmos de recomendação podem analisar os dados para identificar relações entre produtos e comportamentos de compra. Com isso, o sistema poderá utilizar essas informações para gerar recomendações de produtos mais relevantes.
+Algoritmos de recomendação podem analisar esses dados para identificar quais produtos costumam ser adquiridos em conjunto e quais clientes apresentam comportamentos semelhantes. Com isso, o sistema poderá utilizar essas informações para gerar recomendações de produtos mais relevantes.
 
-No projeto serão utilizadas bibliotecas de Python e Google Colab para analisar, preparar e posteriormente utilizar os dados na construção do modelo de recomendação.
+No Google Colab são utilizadas bibliotecas de Python para analisar os dados e desenvolver o modelo de recomendação. O sistema utiliza dados públicos, sem utilizar informações pessoais reais dos usuários.
 
 ## Tipo de Problema
 
 O projeto se encaixa principalmente no tipo de **recomendação**, pois seu objetivo é sugerir produtos que podem ser relevantes para cada cliente.
 
-O sistema poderá analisar informações sobre o histórico de compras e os produtos adquiridos para encontrar padrões e gerar recomendações. O agrupamento ou a análise de similaridade entre clientes e produtos poderá ser utilizado como apoio, mas o resultado principal será a recomendação de produtos.
+O sistema poderá analisar informações sobre histórico de compras e comportamento dos usuários para encontrar padrões e gerar recomendações personalizadas.
 
 ## Entradas e Saídas Esperadas
 
@@ -34,12 +34,12 @@ O sistema poderá analisar informações sobre o histórico de compras e os prod
 
 - Histórico de compras dos clientes;
 - Produtos comprados;
-- Código e descrição dos produtos;
+- Código dos produtos;
+- Descrição dos produtos;
 - Quantidade comprada;
-- Preço dos produtos;
-- Data das compras;
-- País do cliente;
-- Relação entre produtos comprados.
+- Data da compra;
+- Preço unitário;
+- País do cliente.
 
 **Saídas:**
 
@@ -50,27 +50,19 @@ O sistema poderá analisar informações sobre o histórico de compras e os prod
 
 ## Soluções Disponíveis
 
-**Amazon**  
-[Link:](https://www.amazon.com/)
+**Amazon**
 
-A Amazon utiliza sistemas de recomendação para apresentar produtos de acordo com os interesses e o comportamento dos clientes. A proposta é semelhante ao projeto por também utilizar informações dos usuários para oferecer sugestões personalizadas.
+A Amazon utiliza sistemas de recomendação para apresentar produtos de acordo com os interesses e o comportamento dos clientes. A proposta é semelhante por também utilizar informações dos usuários para oferecer sugestões personalizadas.
 
-A principal diferença é que a Amazon possui uma estrutura comercial de grande escala, enquanto o projeto será desenvolvido como uma proposta acadêmica utilizando dados públicos e um escopo menor.
+**Recombee**
 
-**Recombee**  
-[Link:](https://www.recombee.com/)
-
-A Recombee oferece soluções de recomendação utilizando Inteligência Artificial e dados de comportamento dos usuários para gerar sugestões personalizadas.
-
-A proposta é semelhante por utilizar dados para gerar recomendações, mas o projeto será desenvolvido como um protótipo acadêmico utilizando Python e Google Colab.
+A Recombee oferece soluções de recomendação utilizando Inteligência Artificial e dados de comportamento dos usuários para gerar sugestões personalizadas. A diferença é que o projeto será desenvolvido como um protótipo acadêmico utilizando Python e Google Colab.
 
 ## Limitações Iniciais
 
-Uma das principais limitações está relacionada à qualidade dos dados utilizados. A base possui registros sem identificação de cliente, duplicidades, cancelamentos e valores que precisam ser tratados antes da utilização no modelo.
+Uma das principais limitações pode ser a qualidade e quantidade dos dados disponíveis. Caso o conjunto de dados possua informações incompletas ou poucos registros de determinados clientes ou produtos, as recomendações podem ser menos precisas.
 
-Outra limitação está relacionada a novos clientes ou produtos. Quando existem poucos dados sobre determinado cliente ou produto, pode ser mais difícil encontrar padrões suficientes para gerar uma recomendação personalizada.
-
-Também é importante considerar que a base representa o comportamento de uma empresa específica. Portanto, os padrões encontrados não necessariamente representam todos os consumidores de comércio eletrônico.
+Outra limitação é o caso de novos usuários ou produtos. Quando ainda não existem dados suficientes sobre eles, pode ser difícil identificar quais produtos são mais adequados para recomendação.
 
 ## Abordagens de IA
 
@@ -78,221 +70,187 @@ Também é importante considerar que a base representa o comportamento de uma em
 
 | Abordagem | Como funcionaria no projeto | Vantagens | Desvantagens | Viabilidade no semestre |
 |---|---|---|---|---|
-| Aprendizado de Máquina | Analisaria os dados de compras e comportamento dos clientes para identificar padrões e gerar recomendações de produtos. | Consegue encontrar padrões nos dados e pode gerar recomendações mais personalizadas. | Depende da quantidade e qualidade dos dados disponíveis. | Alta, utilizando Python e Google Colab. |
-| Sistemas Especialistas | Utilizaria regras definidas manualmente, como recomendar um produto relacionado após determinada compra. | Simples de entender e implementar. | Exige criação manual das regras e possui menor flexibilidade. | Alta, porém com um sistema mais limitado. |
+| Aprendizado de Máquina | Analisa os dados de compras e comportamento dos clientes para identificar padrões e gerar recomendações. | Consegue encontrar padrões nos dados e gerar recomendações personalizadas. | Depende da quantidade e qualidade dos dados disponíveis. | Alta, utilizando Python e Google Colab. |
+| Sistemas Especialistas | Utiliza regras definidas manualmente para recomendar produtos. | Simples de entender, desenvolver e testar. | Exige a criação manual de muitas regras e possui menor flexibilidade. | Alta, porém com um sistema mais limitado. |
 
 ## Abordagem Escolhida
 
 A abordagem escolhida para o projeto é o **Aprendizado de Máquina**.
 
-Essa escolha foi feita porque o principal problema é encontrar padrões nos dados de compras para gerar recomendações. O Aprendizado de Máquina permite utilizar os dados disponíveis para identificar relações entre produtos e comportamentos dos clientes.
+Essa escolha foi feita porque o principal problema do projeto é encontrar padrões nos dados de compras e comportamento dos clientes para gerar recomendações.
 
-Em vez de criar manualmente uma regra para cada combinação de produtos, o modelo poderá analisar os registros e identificar relações existentes nos dados.
+Em vez de criar manualmente uma regra para cada combinação de produtos, o modelo poderá analisar os dados e identificar quais produtos costumam aparecer relacionados nas compras.
 
-Além disso, o uso de Python e Google Colab torna a abordagem compatível com o desenvolvimento acadêmico do projeto.
+Além disso, o uso de Python e Google Colab torna essa abordagem viável dentro do prazo do semestre.
 
 ## Regras suficientes?
 
-Uma solução baseada somente em regras seria possível, mas não atenderia completamente ao objetivo do projeto.
+Uma solução baseada somente em regras seria possível, mas não seria suficiente para atender completamente ao objetivo do projeto.
 
-Por exemplo, seria possível criar uma regra como "se o cliente comprar um celular, recomendar uma capinha". Esse tipo de regra funciona para situações específicas, mas seria necessário criar diversas regras conforme aumentasse a quantidade de produtos e comportamentos.
+Por exemplo, seria possível criar uma regra como "se o cliente comprar um celular, recomendar uma capinha". Porém, conforme aumenta a quantidade de produtos e clientes, seria necessário criar e atualizar muitas regras manualmente.
 
-Por isso, o Aprendizado de Máquina foi escolhido para permitir que os padrões sejam identificados a partir dos próprios dados.
+Por isso, o Aprendizado de Máquina é adequado ao projeto, pois pode encontrar padrões nos dados sem que todas as relações precisem ser cadastradas manualmente.
 
-## Base de Dados
+# Base de Dados
 
-A base utilizada no projeto é a **Online Retail**, disponibilizada pelo **UCI Machine Learning Repository**.
+A base utilizada é a **Online Retail**, disponibilizada pelo UCI Machine Learning Repository.
 
-A base possui:
+A base possui inicialmente:
 
 - 541.909 registros;
 - 8 colunas;
-- 4.070 produtos;
-- 4.372 clientes identificados;
-- 38 países;
 - Período de 01/12/2010 a 09/12/2011;
-- Licença CC BY 4.0.
+- 4.070 produtos;
+- 4.372 clientes;
+- 38 países.
 
-### Fonte
-
-UCI Machine Learning Repository:
+Fonte oficial:
 
 https://archive.ics.uci.edu/dataset/352/online+retail
 
-### Principais colunas
+DOI:
 
-| Coluna | Descrição |
-|---|---|
-| InvoiceNo | Identificador da fatura/transação |
-| StockCode | Código do produto |
-| Description | Descrição do produto |
-| Quantity | Quantidade de produtos |
-| InvoiceDate | Data e hora da transação |
-| UnitPrice | Preço unitário |
-| CustomerID | Identificador do cliente |
-| Country | País do cliente |
+https://doi.org/10.24432/C5BW33
 
-## Diagnóstico da Qualidade dos Dados
+## Diagnóstico da Base
 
-Antes da limpeza definitiva, foi realizada uma análise da qualidade da base.
-
-Foram encontrados os seguintes problemas:
+Durante o diagnóstico foram identificados:
 
 - 135.080 valores ausentes em `CustomerID`;
 - 1.454 valores ausentes em `Description`;
 - 5.268 linhas totalmente duplicadas;
 - 10.624 registros com `Quantity <= 0`;
 - 2.517 registros com `UnitPrice <= 0`;
-- 9.288 faturas iniciadas com `C`, relacionadas a cancelamentos.
+- 9.288 registros de cancelamento;
+- 4.070 produtos diferentes;
+- 4.372 clientes diferentes;
+- 38 países diferentes.
 
-Também foi identificado que a repetição de `InvoiceNo` não significa necessariamente uma duplicata, pois uma mesma fatura pode possuir vários produtos.
+A repetição de `InvoiceNo` não foi considerada duplicação automaticamente, pois uma mesma compra pode possuir vários produtos.
 
-Outro ponto observado foi a concentração de registros em determinados países e produtos, o que deve ser considerado durante a análise e construção das recomendações.
+## Limpeza e Preparação
 
-## Limpeza e Preparação dos Dados
+A etapa de limpeza e preparação foi realizada com base nos problemas identificados durante o diagnóstico.
 
-Após o diagnóstico, foi realizada a etapa de limpeza e preparação da base.
+Foram realizadas as seguintes ações:
 
-As seguintes transformações foram realizadas:
+- remoção de registros sem `CustomerID`;
+- remoção de duplicatas exatas;
+- conversão de `InvoiceDate` para o tipo de data;
+- remoção de registros de cancelamento;
+- tratamento de registros com `Quantity` ou `UnitPrice` não positivos;
+- verificação de valores ausentes após o tratamento;
+- verificação de duplicatas após o tratamento;
+- salvamento da base tratada separadamente.
 
-### Valores ausentes
+A base original foi preservada e as transformações foram realizadas sobre uma cópia dos dados.
 
-Os registros sem `CustomerID` foram removidos.
+## Resultado da Limpeza
 
-Essa decisão foi tomada porque o identificador do cliente é necessário para relacionar as compras ao histórico de cada cliente. Preencher esse valor artificialmente poderia criar uma identificação incorreta.
+A base original possuía:
 
-Os valores ausentes de `Description` não foram preenchidos artificialmente, pois o `StockCode` pode identificar o produto e essa questão poderá ser revisada posteriormente caso a descrição seja necessária para o modelo.
+- **541.909 linhas**
+- **8 colunas**
 
-### Duplicidades
+Após a limpeza e preparação:
 
-Foram removidas somente as linhas totalmente duplicadas.
+- **392.692 linhas**
+- **8 colunas**
 
-A repetição de `InvoiceNo` não foi utilizada como critério de duplicidade, pois uma mesma compra pode possuir diversos produtos.
+A base final não apresenta valores ausentes nas colunas verificadas e não apresenta duplicatas restantes.
 
-### Data
+## Tabela de Decisões
 
-A coluna `InvoiceDate` foi convertida para o tipo de data e hora (`datetime`), permitindo que ela seja utilizada corretamente em análises temporais posteriores.
+| Transformação | Coluna afetada | Motivo | Impacto | Risco |
+|---|---|---|---|---|
+| Remoção de valores ausentes | `CustomerID` | Necessário para relacionar as compras aos clientes | Redução do número de registros | Perda de compras que não possuem identificação de cliente |
+| Remoção de duplicatas | Todas | Evitar registros exatamente repetidos | Redução do número de registros | Possível remoção de uma repetição legítima, por isso apenas duplicatas exatas foram removidas |
+| Conversão de tipo | `InvoiceDate` | Permitir o tratamento correto da data | Sem alteração na quantidade de linhas ou colunas | Datas inválidas poderiam causar problemas no processamento |
+| Remoção de cancelamentos | `InvoiceNo` | Trabalhar com compras válidas para as recomendações | Redução do número de registros | Perda de informações sobre cancelamentos |
+| Tratamento de valores não positivos | `Quantity` e `UnitPrice` | Evitar que valores incompatíveis com compras normais sejam utilizados no modelo | Redução do número de registros | Alguns valores podem representar devoluções ou ajustes legítimos |
+| Padronização de categorias | `Country` / `StockCode` | Não foi identificada necessidade de alteração nesta etapa | Sem alteração | Necessidades futuras poderão ser avaliadas durante a modelagem |
+| Codificação | Variáveis categóricas | Será definida de acordo com o modelo escolhido | Sem alteração nesta etapa | Poderá ser necessária posteriormente |
+| Escalonamento | Variáveis numéricas | Depende do algoritmo utilizado na modelagem | Sem alteração nesta etapa | Poderá ser necessário posteriormente |
 
-### Cancelamentos
+### Comparação Geral da Base
 
-Foram removidos os registros cujo `InvoiceNo` começa com `C`, pois representam cancelamentos e o objetivo desta preparação é trabalhar com compras válidas para a construção das recomendações.
-
-### Quantidade e preço
-
-Foram removidos registros com:
-
-- `Quantity <= 0`;
-- `UnitPrice <= 0`.
-
-A decisão foi tomada para manter registros compatíveis com compras válidas, evitando que quantidades ou preços não positivos influenciem diretamente a preparação do modelo.
-
-Essas transformações podem resultar na perda de informações relacionadas a devoluções, ajustes ou outros tipos de transação. Por isso, esse risco foi registrado na tabela de decisões do notebook.
-
-## Registro das Decisões
-
-As transformações realizadas foram registradas considerando:
-
-- transformação aplicada;
-- coluna afetada;
-- motivo da decisão;
-- impacto sobre os dados;
-- possíveis riscos.
-
-O registro completo das decisões está documentado no notebook da Atividade 8.
+| Situação | Linhas | Colunas |
+|---|---:|---:|
+| Antes da limpeza | 541.909 | 8 |
+| Depois da limpeza | 392.692 | 8 |
 
 ## Data Leakage
 
-Durante a preparação dos dados, não foram ajustadas sobre a base completa transformações que aprendem parâmetros, como escalonamento ou imputação por estatísticas.
+Foi realizada uma verificação para evitar vazamento de dados.
 
-A divisão entre treino e teste deverá ser realizada antes de qualquer transformação que aprenda parâmetros dos dados.
+As transformações realizadas nesta etapa não utilizaram informações do resultado futuro do modelo.
 
-Também foi considerado que identificadores como `InvoiceNo` e `CustomerID` não devem ser utilizados diretamente como características do modelo. O `CustomerID` continuará disponível na base tratada para permitir o relacionamento das compras com os clientes, mas deverá ser tratado como identificador na definição das features.
+Também não foi realizado ajuste de parâmetros de transformação utilizando um conjunto completo antes da separação entre treino e teste.
 
-## Artefatos do Projeto
+As colunas `InvoiceNo` e `CustomerID` não serão utilizadas diretamente como características do modelo. O `CustomerID` permanece na base tratada para permitir o relacionamento entre clientes e compras.
 
-### Notebook
+Na etapa de modelagem, qualquer transformação que aprenda parâmetros dos dados, como codificação ou escalonamento quando necessário, deverá ser ajustada utilizando somente os dados de treinamento.
 
-O notebook contém:
+# Artefatos do Projeto
 
-- carregamento da base;
-- inspeção inicial;
-- tratamento dos valores ausentes;
-- remoção de duplicidades;
-- análise de categorias;
-- verificação de codificação;
-- verificação de escalonamento;
-- conversão de tipos;
-- remoção de cancelamentos;
-- tratamento de valores inválidos;
-- verificação final;
-- tabela de decisões;
-- verificação de Data Leakage;
-- salvamento da base tratada.
+## Caderno da Atividade 8
 
-**Notebook da Atividade 8:**  
-COLE AQUI O LINK DO GOOGLE COLAB
+O notebook foi executado do início ao fim, com as células processadas e os resultados finais verificados.
 
-### Base tratada
+[🔗 Abrir Caderno da Atividade 8 no Google Colab](https://colab.research.google.com/drive/10ObqzV4xG1I7mYuFZ3TnwXEO8lgIKQ2_?usp=sharing)
 
-A base final é salva separadamente como:
+## Base tratada
+
+A base final foi salva separadamente como:
 
 `dados_tratados.csv`
 
-A base original não é sobrescrita.
+Dimensões da base tratada:
 
-O arquivo tratado é verificado novamente após o salvamento para confirmar que pode ser carregado corretamente.
+**392.692 linhas × 8 colunas**
 
-**Arquivo:** `dados_tratados.csv`
+O arquivo foi carregado novamente após o salvamento para verificar se a base foi armazenada corretamente.
 
-### Diagnóstico
+## Diagnóstico
 
-O diagnóstico completo da qualidade dos dados está documentado no arquivo:
+O diagnóstico da qualidade dos dados foi realizado antes da etapa de limpeza, permitindo identificar os principais problemas da base e definir as transformações necessárias.
 
-`diagnostico_qualidade.md`
+# Escopo Atualizado
 
-## Escopo do Projeto Atualizado
+Até o momento, o projeto possui:
 
-Até o final do semestre, o projeto terá como objetivo:
-
-- Analisar um conjunto de dados de comércio eletrônico;
-- Realizar o diagnóstico da qualidade dos dados;
-- Realizar a limpeza e preparação dos dados;
-- Explorar os dados e identificar padrões de compra;
-- Desenvolver um modelo de recomendação utilizando Aprendizado de Máquina;
-- Gerar recomendações de produtos;
-- Testar o modelo utilizando o Google Colab;
-- Avaliar a qualidade das recomendações;
-- Documentar os resultados obtidos.
-
-O projeto não terá como objetivo criar uma loja virtual completa, realizar recomendações em tempo real para usuários reais, utilizar dados pessoais reais de clientes ou desenvolver um sistema de recomendação em escala comercial.
+- definição do problema como recomendação;
+- definição do Aprendizado de Máquina como abordagem;
+- escolha da base Online Retail;
+- diagnóstico da qualidade dos dados;
+- limpeza e preparação da base;
+- verificação dos dados após o tratamento;
+- salvamento da base tratada;
+- verificação do arquivo salvo;
+- registro das decisões de tratamento;
+- verificação de possíveis problemas de vazamento de dados.
 
 ## Próximos Passos
 
-Após a limpeza e preparação da base, os próximos passos são:
+Para o Encontro 9, os próximos passos serão:
 
-- Definir as variáveis que serão utilizadas como entradas do modelo;
-- Avaliar a necessidade de codificação das variáveis;
-- Avaliar a necessidade de escalonamento;
-- Explorar os padrões de compra presentes na base tratada;
-- Definir e implementar o algoritmo de recomendação;
-- Separar os dados adequadamente para treinamento e teste;
-- Avaliar as recomendações geradas.
+- definir as variáveis que serão utilizadas no modelo;
+- realizar a preparação específica para o algoritmo escolhido;
+- avaliar a necessidade de codificação das variáveis categóricas;
+- avaliar a necessidade de escalonamento das variáveis numéricas;
+- separar os dados para treinamento e teste, quando aplicável;
+- desenvolver o modelo de recomendação;
+- testar e avaliar as recomendações geradas.
 
-## Riscos Técnicos
+## Riscos
 
-Uma das principais dificuldades está relacionada à qualidade dos dados. Registros sem identificação de cliente, cancelamentos, devoluções e valores inválidos podem afetar os padrões utilizados pelo sistema.
+A qualidade das recomendações dependerá da quantidade e qualidade dos dados disponíveis.
 
-**Mitigação:** realizar diagnóstico e limpeza dos dados antes da construção do modelo, mantendo registro das decisões tomadas.
+Também existe o risco de clientes ou produtos possuírem poucas informações, dificultando a identificação de padrões.
 
-Outro risco é a complexidade do modelo em relação ao prazo do semestre.
+Outro ponto é que a base representa uma empresa específica de varejo online. Portanto, os padrões encontrados podem não representar todos os consumidores de comércio eletrônico.
 
-**Mitigação:** utilizar uma abordagem de Aprendizado de Máquina compatível com o nível do projeto e priorizar uma solução funcional.
-
-Também existe o risco de novos clientes ou produtos possuírem poucos dados.
-
-**Mitigação:** considerar estratégias de recomendação mais gerais para situações em que não exista histórico suficiente.
-
-## Lista de Pendências Atualizada
+# Lista de Pendências Atualizada
 
 - [x] Criar o repositório no GitHub.
 - [x] Buscar possíveis conjuntos de dados de e-commerce.
@@ -300,18 +258,16 @@ Também existe o risco de novos clientes ou produtos possuírem poucos dados.
 - [x] Pesquisar soluções semelhantes.
 - [x] Comparar possíveis abordagens de IA.
 - [x] Definir o Aprendizado de Máquina como abordagem escolhida.
-- [x] Escolher a base Online Retail.
-- [x] Realizar o diagnóstico da qualidade dos dados.
-- [x] Identificar valores ausentes.
-- [x] Identificar duplicidades.
-- [x] Identificar cancelamentos e valores não positivos.
-- [x] Realizar a limpeza e preparação da base.
+- [x] Analisar o conjunto de dados escolhido.
+- [x] Realizar o tratamento e limpeza dos dados.
+- [x] Executar o notebook do início ao fim.
+- [x] Verificar os resultados finais da limpeza.
+- [x] Salvar a base tratada.
+- [x] Verificar a base tratada após o salvamento.
 - [x] Registrar as decisões de tratamento.
-- [x] Verificar possíveis situações de Data Leakage.
-- [x] Salvar a base tratada separadamente da base original.
-- [ ] Explorar os dados tratados e identificar padrões de compra.
-- [ ] Definir as features utilizadas pelo modelo.
-- [ ] Desenvolver o algoritmo de recomendação.
+- [x] Verificar possíveis problemas de vazamento de dados.
+- [ ] Definir o modelo de recomendação.
+- [ ] Desenvolver o algoritmo de recomendação de produtos.
 - [ ] Testar o modelo utilizando o Google Colab.
 - [ ] Avaliar a qualidade das recomendações.
-- [ ] Documentar os resultados finais.
+- [ ] Documentar os resultados obtidos.
