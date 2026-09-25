@@ -228,19 +228,58 @@ Até o momento, o projeto possui:
 - salvamento da base tratada;
 - verificação do arquivo salvo;
 - registro das decisões de tratamento;
-- verificação de possíveis problemas de vazamento de dados.
+- verificação de possíveis problemas de vazamento de dados;
+- definição das características utilizadas no primeiro modelo;
+- criação de um alvo para classificação binária;
+- separação dos dados em treinamento e teste;
+- criação de um baseline;
+- treinamento de uma Árvore de Decisão;
+- realização de previsões;
+- avaliação e comparação dos resultados do modelo com o baseline.
+
+## Primeiro Modelo de Machine Learning
+
+### Atividade 9
+
+Na primeira etapa de modelagem, foi utilizado o conjunto de dados tratado na Atividade 8.
+
+Para o primeiro modelo, o problema foi estruturado como uma classificação binária. O objetivo é identificar se um cliente realizará uma nova compra em um período futuro.
+
+As características utilizadas foram:
+
+- quantidade total de produtos comprados;
+- preço médio das compras;
+- quantidade de pedidos realizados;
+- país do cliente.
+
+O `CustomerID` não foi utilizado como característica do modelo, sendo mantido apenas para identificar os clientes durante a preparação dos dados.
+
+Foi utilizada uma divisão de 80% dos dados para treinamento e 20% para teste, com `stratify` para manter a proporção das classes.
+
+Como baseline, foi utilizada a classe majoritária, que apresentou acurácia de **61,61%**.
+
+O primeiro modelo escolhido foi uma **Árvore de Decisão**, por ser um modelo simples de interpretar e adequado para um primeiro teste de classificação.
+
+O modelo apresentou acurácia de **73,15%**, ficando **11,54 pontos percentuais acima do baseline**.
+
+As previsões foram comparadas com os valores reais no notebook, permitindo verificar o comportamento do modelo no conjunto de teste.
+
+Durante o desenvolvimento, foi necessário transformar a variável categórica `Pais` em valores numéricos utilizando `get_dummies`, permitindo que a Árvore de Decisão trabalhasse com os dados.
+
+Também foi utilizada uma separação temporal entre dados passados e futuros para criar o alvo do modelo, evitando utilizar diretamente informações de compras futuras nas características.
+
+O desenvolvimento e os resultados da Atividade 9 estão registrados no notebook do projeto.
 
 ## Próximos Passos
 
-Para o Encontro 9, os próximos passos serão:
+Para os próximos encontros, os próximos passos serão:
 
-- definir as variáveis que serão utilizadas no modelo;
-- realizar a preparação específica para o algoritmo escolhido;
-- avaliar a necessidade de codificação das variáveis categóricas;
-- avaliar a necessidade de escalonamento das variáveis numéricas;
-- separar os dados para treinamento e teste, quando aplicável;
-- desenvolver o modelo de recomendação;
-- testar e avaliar as recomendações geradas.
+- aprimorar o modelo de recomendação;
+- avaliar outras características que possam melhorar as previsões;
+- testar outros modelos de Machine Learning, quando aplicável;
+- avaliar a qualidade das previsões e recomendações;
+- documentar os resultados obtidos;
+- desenvolver a etapa de recomendação de produtos a partir dos padrões identificados.
 
 ## Riscos
 
@@ -266,8 +305,16 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [x] Verificar a base tratada após o salvamento.
 - [x] Registrar as decisões de tratamento.
 - [x] Verificar possíveis problemas de vazamento de dados.
-- [ ] Definir o modelo de recomendação.
-- [ ] Desenvolver o algoritmo de recomendação de produtos.
-- [ ] Testar o modelo utilizando o Google Colab.
+- [x] Definir as características utilizadas no primeiro modelo.
+- [x] Criar o alvo para classificação binária.
+- [x] Separar os dados em treinamento e teste.
+- [x] Criar e avaliar o baseline.
+- [x] Treinar a primeira Árvore de Decisão.
+- [x] Realizar previsões e comparar com os valores reais.
+- [x] Comparar o modelo com o baseline.
+- [x] Registrar as dificuldades encontradas durante a modelagem.
+- [ ] Aprimorar o modelo de recomendação.
+- [ ] Testar outros modelos de Machine Learning, quando aplicável.
 - [ ] Avaliar a qualidade das recomendações.
-- [ ] Documentar os resultados obtidos.
+- [ ] Documentar os resultados finais.
+- [ ] Desenvolver o algoritmo de recomendação de produtos.
