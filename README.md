@@ -241,7 +241,7 @@ Até o momento, o projeto possui:
 
 ### Atividade 9
 
-Na primeira etapa de modelagem, foi utilizado o conjunto de dados tratado na Atividade 8.
+Na etapa de modelagem, foi utilizado o conjunto de dados tratado na Atividade 8.
 
 Para o primeiro modelo, o problema foi estruturado como uma classificação binária. O objetivo é identificar se um cliente realizará uma nova compra em um período futuro.
 
@@ -250,23 +250,28 @@ As características utilizadas foram:
 - quantidade total de produtos comprados;
 - preço médio das compras;
 - quantidade de pedidos realizados;
-- país do cliente.
+- país do cliente;
+- recência, calculada a partir da última compra do cliente antes da data de corte.
 
 O `CustomerID` não foi utilizado como característica do modelo, sendo mantido apenas para identificar os clientes durante a preparação dos dados.
 
-Foi utilizada uma divisão de 80% dos dados para treinamento e 20% para teste, com `stratify` para manter a proporção das classes.
+Foi utilizada uma divisão de 80% dos dados para treinamento e 20% para teste, com `stratify` para manter a proporção das classes. A separação temporal já havia sido realizada na construção do problema, utilizando compras anteriores à data de corte para criar as características e compras posteriores para definir o alvo.
 
 Como baseline, foi utilizada a classe majoritária, que apresentou acurácia de **61,61%**.
 
 O primeiro modelo escolhido foi uma **Árvore de Decisão**, por ser um modelo simples de interpretar e adequado para um primeiro teste de classificação.
 
-O modelo apresentou acurácia de **73,15%**, ficando **11,54 pontos percentuais acima do baseline**.
+A primeira Árvore de Decisão, com profundidade máxima 5, apresentou acurácia de **72,40%**, ficando **10,79 pontos percentuais acima do baseline**.
+
+Também foi testada uma segunda Árvore de Decisão, com profundidade máxima 3, que apresentou acurácia de **72,27%**. Os resultados das duas árvores ficaram próximos.
+
+Além da acurácia, foram analisadas a precisão e o recall da primeira árvore. O modelo apresentou **78,67% de precisão** e **38,56% de recall**, indicando que ainda é necessário analisar melhor os erros e outras métricas de avaliação.
+
+Durante o desenvolvimento, a variável `Pais` foi agrupada em duas categorias: **Reino Unido** e **Outros**, reduzindo a quantidade de variáveis geradas para o modelo.
+
+A transformação da variável categórica foi realizada somente depois da separação entre treino e teste, evitando utilizar informações do conjunto de teste na preparação do treinamento.
 
 As previsões foram comparadas com os valores reais no notebook, permitindo verificar o comportamento do modelo no conjunto de teste.
-
-Durante o desenvolvimento, foi necessário transformar a variável categórica `Pais` em valores numéricos utilizando `get_dummies`, permitindo que a Árvore de Decisão trabalhasse com os dados.
-
-Também foi utilizada uma separação temporal entre dados passados e futuros para criar o alvo do modelo, evitando utilizar diretamente informações de compras futuras nas características.
 
 O desenvolvimento e os resultados da Atividade 9 estão registrados no notebook do projeto.
 
@@ -274,11 +279,12 @@ O desenvolvimento e os resultados da Atividade 9 estão registrados no notebook 
 
 Para os próximos encontros, os próximos passos serão:
 
-- aprimorar o modelo de recomendação;
-- avaliar outras características que possam melhorar as previsões;
+- analisar outras métricas de avaliação do modelo;
+- interpretar os resultados e os erros das previsões;
+- avaliar a necessidade de novos ajustes nas características utilizadas;
 - testar outros modelos de Machine Learning, quando aplicável;
+- preparar a apresentação dos resultados;
 - avaliar a qualidade das previsões e recomendações;
-- documentar os resultados obtidos;
 - desenvolver a etapa de recomendação de produtos a partir dos padrões identificados.
 
 ## Riscos
@@ -312,7 +318,14 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [x] Treinar a primeira Árvore de Decisão.
 - [x] Realizar previsões e comparar com os valores reais.
 - [x] Comparar o modelo com o baseline.
+- [x] Adicionar a variável de recência.
+- [x] Agrupar os países em `Reino Unido` e `Outros`.
+- [x] Ajustar a transformação das variáveis categóricas para ocorrer após a separação entre treino e teste.
+- [x] Testar uma segunda Árvore de Decisão com profundidade diferente.
+- [x] Avaliar precisão e recall do modelo principal.
 - [x] Registrar as dificuldades encontradas durante a modelagem.
+- [ ] Analisar outras métricas e interpretar os resultados.
+- [ ] Preparar a apresentação dos resultados.
 - [ ] Aprimorar o modelo de recomendação.
 - [ ] Testar outros modelos de Machine Learning, quando aplicável.
 - [ ] Avaliar a qualidade das recomendações.
