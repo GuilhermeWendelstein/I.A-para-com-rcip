@@ -235,7 +235,14 @@ Até o momento, o projeto possui:
 - criação de um baseline;
 - treinamento de uma Árvore de Decisão;
 - realização de previsões;
-- avaliação e comparação dos resultados do modelo com o baseline.
+- avaliação e comparação dos resultados do modelo com o baseline;
+- avaliação das métricas de classificação;
+- análise da matriz de confusão;
+- análise de possíveis sinais de overfitting;
+- verificação de duplicação de clientes;
+- verificação de possíveis fontes de vazamento de dados;
+- escolha do recall como métrica principal da classe "Comprou novamente";
+- preparação dos slides de esboço da Atividade 10.
 
 ## Primeiro Modelo de Machine Learning
 
@@ -265,7 +272,7 @@ A primeira Árvore de Decisão, com profundidade máxima 5, apresentou acurácia
 
 Também foi testada uma segunda Árvore de Decisão, com profundidade máxima 3, que apresentou acurácia de **72,27%**. Os resultados das duas árvores ficaram próximos.
 
-Além da acurácia, foram analisadas a precisão e o recall da primeira árvore. O modelo apresentou **78,67% de precisão** e **38,56% de recall**, indicando que ainda é necessário analisar melhor os erros e outras métricas de avaliação.
+Além da acurácia, foram analisadas a precisão e o recall da primeira árvore. O modelo apresentou **78,67% de precisão** e **38,56% de recall** para a classe "Comprou novamente".
 
 Durante o desenvolvimento, a variável `Pais` foi agrupada em duas categorias: **Reino Unido** e **Outros**, reduzindo a quantidade de variáveis geradas para o modelo.
 
@@ -273,19 +280,92 @@ A transformação da variável categórica foi realizada somente depois da separ
 
 As previsões foram comparadas com os valores reais no notebook, permitindo verificar o comportamento do modelo no conjunto de teste.
 
-O desenvolvimento e os resultados da Atividade 9 estão registrados no notebook do projeto.
+### Atividade 10 — Avaliação do modelo
 
-## Próximos Passos
+Na Atividade 10, foi realizada uma avaliação mais detalhada da primeira Árvore de Decisão utilizando o conjunto de teste.
 
-Para os próximos encontros, os próximos passos serão:
+Os principais resultados foram:
 
-- analisar outras métricas de avaliação do modelo;
-- interpretar os resultados e os erros das previsões;
-- avaliar a necessidade de novos ajustes nas características utilizadas;
-- testar outros modelos de Machine Learning, quando aplicável;
-- preparar a apresentação dos resultados;
-- avaliar a qualidade das previsões e recomendações;
-- desenvolver a etapa de recomendação de produtos a partir dos padrões identificados.
+- **Acurácia no treino:** 72,15%;
+- **Acurácia no teste:** 72,40%;
+- **Diferença entre treino e teste:** aproximadamente -0,25 ponto percentual;
+- **Baseline:** 61,61%;
+- **Acurácia da Árvore de Decisão:** 72,40%;
+- **Precision da classe "Comprou novamente":** 78,67%;
+- **Recall da classe "Comprou novamente":** 38,56%;
+- **F1-score da classe "Comprou novamente":** 52%.
+
+O relatório de classificação apresentou os seguintes resultados:
+
+| Classe | Precision | Recall | F1-score | Support |
+|---|---:|---:|---:|---:|
+| Não comprou novamente | 71% | 93% | 81% | 491 |
+| Comprou novamente | 78,67% | 38,56% | 52% | 306 |
+
+A matriz de confusão apresentou:
+
+| | Predito: Não | Predito: Sim |
+|---|---:|---:|
+| **Real: Não** | 459 | 32 |
+| **Real: Sim** | 188 | 118 |
+
+Os valores representam:
+
+- **459 verdadeiros negativos:** clientes que não compraram novamente e foram classificados corretamente;
+- **32 falsos positivos:** clientes classificados como compradores, mas que não realizaram uma nova compra;
+- **188 falsos negativos:** clientes que realizaram uma nova compra, mas foram classificados como não compradores;
+- **118 verdadeiros positivos:** clientes que realizaram uma nova compra e foram classificados corretamente.
+
+### Métrica principal
+
+A métrica principal escolhida foi o **recall da classe "Comprou novamente"**.
+
+Essa escolha está relacionada ao objetivo de identificar clientes que realmente realizam uma nova compra. Um falso negativo representa um cliente que voltou a comprar, mas não foi identificado pelo modelo, podendo representar uma oportunidade não identificada para uma ação de relacionamento ou marketing.
+
+Por outro lado, um falso positivo representa um cliente classificado como possível comprador, mas que não realizou uma nova compra, podendo resultar em uma ação de marketing desnecessária.
+
+### Teste de overfitting
+
+Foi realizada uma comparação entre o desempenho do modelo nos dados de treino e nos dados de teste.
+
+Os resultados foram:
+
+- **Treino:** 72,15%;
+- **Teste:** 72,40%;
+- **Diferença:** aproximadamente -0,25 ponto percentual.
+
+Como os desempenhos ficaram muito próximos, não foi observado um sinal evidente de overfitting.
+
+O fato de a acurácia no teste ter ficado ligeiramente acima da acurácia no treino não indica, por si só, um problema de generalização. A diferença é muito pequena e pode ocorrer devido à divisão dos dados.
+
+### Verificação de possíveis vazamentos de dados
+
+Foi verificada a possibilidade de vazamento de dados no modelo.
+
+As características dos clientes foram calculadas utilizando somente as compras realizadas antes da data de corte de novembro de 2011. O alvo foi construído utilizando o período posterior ao corte.
+
+Dessa forma, as informações utilizadas nas características não incluem diretamente a resposta que o modelo precisa prever.
+
+Também foi verificada a existência de clientes duplicados no conjunto utilizado para a modelagem. Foram encontrados **0 clientes duplicados** entre os **3.985 registros**.
+
+A divisão entre treino e teste foi realizada depois da construção das características e do alvo. Como a temporalidade já foi considerada na construção do problema, cada linha representa um cliente com informações do passado e um alvo referente ao futuro. Por isso, foi utilizada uma divisão aleatória estratificada entre treino e teste.
+
+Além disso, a transformação da variável `Pais` foi realizada somente após a divisão entre treino e teste, evitando que as categorias do conjunto de teste fossem utilizadas para definir a transformação do conjunto de treinamento.
+
+Com essas verificações, não foi identificado um problema evidente de vazamento de dados ou duplicação de clientes que explique o resultado obtido.
+
+# Próximos Passos
+
+Para as próximas etapas do projeto, os próximos passos serão:
+
+- analisar possíveis melhorias nas características utilizadas;
+- avaliar outras configurações ou modelos de Machine Learning;
+- continuar avaliando o comportamento das previsões;
+- aprimorar o modelo de recomendação;
+- avaliar a qualidade das recomendações;
+- documentar os resultados finais;
+- desenvolver o algoritmo de recomendação de produtos a partir dos padrões identificados;
+- preparar a apresentação final da AP2.
 
 ## Riscos
 
@@ -323,9 +403,14 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [x] Ajustar a transformação das variáveis categóricas para ocorrer após a separação entre treino e teste.
 - [x] Testar uma segunda Árvore de Decisão com profundidade diferente.
 - [x] Avaliar precisão e recall do modelo principal.
-- [x] Registrar as dificuldades encontradas durante a modelagem.
-- [ ] Analisar outras métricas e interpretar os resultados.
-- [ ] Preparar a apresentação dos resultados.
+- [x] Avaliar accuracy, precision, recall e F1-score.
+- [x] Gerar e interpretar a matriz de confusão.
+- [x] Escolher e justificar a métrica principal.
+- [x] Avaliar possível overfitting.
+- [x] Verificar duplicação de clientes.
+- [x] Verificar possíveis fontes de vazamento de dados.
+- [x] Preparar o esboço dos slides da Atividade 10.
+- [x] Preparar a apresentação dos resultados.
 - [ ] Aprimorar o modelo de recomendação.
 - [ ] Testar outros modelos de Machine Learning, quando aplicável.
 - [ ] Avaliar a qualidade das recomendações.
