@@ -233,24 +233,18 @@ Até o momento, o projeto possui:
 - criação de um alvo para classificação binária;
 - separação dos dados em treinamento e teste;
 - criação de um baseline;
-- treinamento de uma Árvore de Decisão;
-- realização de previsões;
-- avaliação e comparação dos resultados do modelo com o baseline;
-- avaliação das métricas de classificação;
-- análise da matriz de confusão;
-- análise de possíveis sinais de overfitting;
-- verificação de duplicação de clientes;
-- verificação de possíveis fontes de vazamento de dados;
-- escolha do recall como métrica principal da classe "Comprou novamente";
-- preparação dos slides de esboço da Atividade 10.
+- treinamento e avaliação de Árvores de Decisão;
+- análise de precisão, recall e F1-score;
+- geração e interpretação da matriz de confusão;
+- diagnóstico de overfitting;
+- verificação de vazamento de dados após a preparação do modelo;
+- preparação dos resultados para a apresentação da AP2.
 
 ## Primeiro Modelo de Machine Learning
 
 ### Atividade 9
 
-Na etapa de modelagem, foi utilizado o conjunto de dados tratado na Atividade 8.
-
-Para o primeiro modelo, o problema foi estruturado como uma classificação binária. O objetivo é identificar se um cliente realizará uma nova compra em um período futuro.
+Na etapa inicial de modelagem, o problema foi estruturado como uma classificação binária. O objetivo é identificar se um cliente realizará uma nova compra em um período futuro.
 
 As características utilizadas foram:
 
@@ -262,116 +256,111 @@ As características utilizadas foram:
 
 O `CustomerID` não foi utilizado como característica do modelo, sendo mantido apenas para identificar os clientes durante a preparação dos dados.
 
-Foi utilizada uma divisão de 80% dos dados para treinamento e 20% para teste, com `stratify` para manter a proporção das classes. A separação temporal já havia sido realizada na construção do problema, utilizando compras anteriores à data de corte para criar as características e compras posteriores para definir o alvo.
+Foi utilizada uma separação temporal para construir o problema, utilizando compras anteriores à data de corte para criar as características e compras posteriores para definir o alvo.
+
+Depois dessa separação temporal, os dados dos clientes foram divididos em 80% para treinamento e 20% para teste, utilizando `stratify` para manter a proporção das classes.
 
 Como baseline, foi utilizada a classe majoritária, que apresentou acurácia de **61,61%**.
 
-O primeiro modelo escolhido foi uma **Árvore de Decisão**, por ser um modelo simples de interpretar e adequado para um primeiro teste de classificação.
+O primeiro modelo utilizado foi uma **Árvore de Decisão**, por ser simples de interpretar e adequada para uma avaliação inicial do problema.
 
-A primeira Árvore de Decisão, com profundidade máxima 5, apresentou acurácia de **72,40%**, ficando **10,79 pontos percentuais acima do baseline**.
+A versão revisada da Árvore de Decisão, com profundidade máxima 5, apresentou acurácia de **72,40%**, ficando **10,79 pontos percentuais acima do baseline**.
 
-Também foi testada uma segunda Árvore de Decisão, com profundidade máxima 3, que apresentou acurácia de **72,27%**. Os resultados das duas árvores ficaram próximos.
+Também foi testada uma segunda Árvore de Decisão, com profundidade máxima 3, que apresentou acurácia de **72,27%**.
 
-Além da acurácia, foram analisadas a precisão e o recall da primeira árvore. O modelo apresentou **78,67% de precisão** e **38,56% de recall** para a classe "Comprou novamente".
+Durante a revisão do modelo, foram adicionadas a variável de recência e o agrupamento dos países em **Reino Unido** e **Outros**. A transformação da variável categórica `Pais` também passou a ser realizada somente depois da divisão entre treino e teste.
 
-Durante o desenvolvimento, a variável `Pais` foi agrupada em duas categorias: **Reino Unido** e **Outros**, reduzindo a quantidade de variáveis geradas para o modelo.
+## Atividade 10 — Avaliação do modelo
 
-A transformação da variável categórica foi realizada somente depois da separação entre treino e teste, evitando utilizar informações do conjunto de teste na preparação do treinamento.
+Na Atividade 10, foi realizada uma avaliação mais completa da Árvore de Decisão de profundidade 5, buscando compreender não apenas a acurácia, mas também os tipos de erros cometidos pelo modelo.
 
-As previsões foram comparadas com os valores reais no notebook, permitindo verificar o comportamento do modelo no conjunto de teste.
+As principais métricas analisadas foram:
 
-### Atividade 10 — Avaliação do modelo
-
-Na Atividade 10, foi realizada uma avaliação mais detalhada da primeira Árvore de Decisão utilizando o conjunto de teste.
-
-Os principais resultados foram:
-
-- **Acurácia no treino:** 72,15%;
-- **Acurácia no teste:** 72,40%;
-- **Diferença entre treino e teste:** aproximadamente -0,25 ponto percentual;
-- **Baseline:** 61,61%;
-- **Acurácia da Árvore de Decisão:** 72,40%;
-- **Precision da classe "Comprou novamente":** 78,67%;
+- **Acurácia:** 72,40%;
+- **Precisão da classe "Comprou novamente":** 78,67%;
 - **Recall da classe "Comprou novamente":** 38,56%;
-- **F1-score da classe "Comprou novamente":** 52%.
-
-O relatório de classificação apresentou os seguintes resultados:
-
-| Classe | Precision | Recall | F1-score | Support |
-|---|---:|---:|---:|---:|
-| Não comprou novamente | 71% | 93% | 81% | 491 |
-| Comprou novamente | 78,67% | 38,56% | 52% | 306 |
+- **F1-score da classe "Comprou novamente":** 0,52.
 
 A matriz de confusão apresentou:
 
-| | Predito: Não | Predito: Sim |
-|---|---:|---:|
-| **Real: Não** | 459 | 32 |
-| **Real: Sim** | 188 | 118 |
+- **459 verdadeiros negativos**;
+- **32 falsos positivos**;
+- **188 falsos negativos**;
+- **118 verdadeiros positivos**.
 
-Os valores representam:
+A comparação com o baseline mostrou que a Árvore de Decisão apresentou desempenho superior:
 
-- **459 verdadeiros negativos:** clientes que não compraram novamente e foram classificados corretamente;
-- **32 falsos positivos:** clientes classificados como compradores, mas que não realizaram uma nova compra;
-- **188 falsos negativos:** clientes que realizaram uma nova compra, mas foram classificados como não compradores;
-- **118 verdadeiros positivos:** clientes que realizaram uma nova compra e foram classificados corretamente.
+| Modelo | Acurácia |
+|---|---:|
+| Baseline | 61,61% |
+| Árvore de Decisão — profundidade 5 | 72,40% |
+| Árvore de Decisão — profundidade 3 | 72,27% |
 
-### Métrica principal
+Portanto, o modelo principal supera o baseline e conseguiu aprender padrões úteis para diferenciar clientes que comprariam novamente daqueles que não comprariam.
 
-A métrica principal escolhida foi o **recall da classe "Comprou novamente"**.
+### Interpretação dos resultados
 
-Essa escolha está relacionada ao objetivo de identificar clientes que realmente realizam uma nova compra. Um falso negativo representa um cliente que voltou a comprar, mas não foi identificado pelo modelo, podendo representar uma oportunidade não identificada para uma ação de relacionamento ou marketing.
+A acurácia de **72,40%** mostra que o modelo apresentou desempenho superior ao baseline de **61,61%**.
 
-Por outro lado, um falso positivo representa um cliente classificado como possível comprador, mas que não realizou uma nova compra, podendo resultar em uma ação de marketing desnecessária.
+Porém, a acurácia sozinha não representa completamente o comportamento do modelo. Para a classe **"Comprou novamente"**, a precisão foi de **78,67%**, enquanto o recall foi de apenas **38,56%**.
 
-### Teste de overfitting
+Isso indica que, quando o modelo prevê que um cliente comprará novamente, existe uma boa proporção de acertos. Por outro lado, o modelo deixa de identificar uma parte considerável dos clientes que realmente voltam a comprar.
 
-Foi realizada uma comparação entre o desempenho do modelo nos dados de treino e nos dados de teste.
+Por esse motivo, o **recall da classe "Comprou novamente"** foi escolhido como a principal métrica. No contexto do projeto, um falso negativo representa um cliente que realmente voltaria a comprar, mas não foi identificado. Esse erro pode representar uma oportunidade perdida de relacionamento ou de marketing.
 
-Os resultados foram:
+Já o falso positivo representa um cliente que o modelo considera como possível comprador novamente, mas que não realiza uma nova compra. Nesse caso, uma ação de marketing poderia ser realizada sem gerar o retorno esperado.
 
-- **Treino:** 72,15%;
-- **Teste:** 72,40%;
-- **Diferença:** aproximadamente -0,25 ponto percentual.
+A principal limitação atual do modelo é justamente o número de falsos negativos: **188 clientes que realmente compraram novamente não foram identificados pelo modelo**.
 
-Como os desempenhos ficaram muito próximos, não foi observado um sinal evidente de overfitting.
+### Overfitting
 
-O fato de a acurácia no teste ter ficado ligeiramente acima da acurácia no treino não indica, por si só, um problema de generalização. A diferença é muito pequena e pode ocorrer devido à divisão dos dados.
+Foi realizada uma comparação entre o desempenho no conjunto de treino e no conjunto de teste.
 
-### Verificação de possíveis vazamentos de dados
+| Conjunto | Acurácia |
+|---|---:|
+| Treino | 72,15% |
+| Teste | 72,40% |
 
-Foi verificada a possibilidade de vazamento de dados no modelo.
+A diferença foi de aproximadamente **-0,25 ponto percentual**.
 
-As características dos clientes foram calculadas utilizando somente as compras realizadas antes da data de corte de novembro de 2011. O alvo foi construído utilizando o período posterior ao corte.
+Os resultados ficaram muito próximos e não indicaram um sinal evidente de overfitting. O modelo não apresentou uma diferença grande entre o desempenho no treinamento e no teste.
 
-Dessa forma, as informações utilizadas nas características não incluem diretamente a resposta que o modelo precisa prever.
+### Verificação de vazamento de dados
 
-Também foi verificada a existência de clientes duplicados no conjunto utilizado para a modelagem. Foram encontrados **0 clientes duplicados** entre os **3.985 registros**.
+Foi realizada uma verificação para evitar vazamento de dados durante a preparação e avaliação do modelo.
 
-A divisão entre treino e teste foi realizada depois da construção das características e do alvo. Como a temporalidade já foi considerada na construção do problema, cada linha representa um cliente com informações do passado e um alvo referente ao futuro. Por isso, foi utilizada uma divisão aleatória estratificada entre treino e teste.
+As duplicatas exatas foram removidas anteriormente, durante a etapa de limpeza da base, antes da divisão dos dados utilizados na modelagem.
 
-Além disso, a transformação da variável `Pais` foi realizada somente após a divisão entre treino e teste, evitando que as categorias do conjunto de teste fossem utilizadas para definir a transformação do conjunto de treinamento.
+Também foi respeitada a ordem cronológica do problema. As características foram calculadas somente com compras anteriores à data de corte, enquanto o alvo foi criado utilizando compras posteriores. Dessa forma, informações do futuro não foram utilizadas diretamente nas características do modelo.
 
-Com essas verificações, não foi identificado um problema evidente de vazamento de dados ou duplicação de clientes que explique o resultado obtido.
+Depois da separação temporal entre passado e futuro, os clientes foram divididos em 80% para treinamento e 20% para teste com `stratify`.
 
-# Próximos Passos
+A transformação da variável `Pais` foi realizada somente depois da divisão entre treino e teste, evitando utilizar informações do conjunto de teste na transformação do treinamento.
 
-Para as próximas etapas do projeto, os próximos passos serão:
+O `CustomerID` não foi utilizado como característica e nenhuma das variáveis utilizadas entrega diretamente a resposta futura.
 
-- analisar possíveis melhorias nas características utilizadas;
-- avaliar outras configurações ou modelos de Machine Learning;
-- continuar avaliando o comportamento das previsões;
-- aprimorar o modelo de recomendação;
-- avaliar a qualidade das recomendações;
-- documentar os resultados finais;
-- desenvolver o algoritmo de recomendação de produtos a partir dos padrões identificados;
-- preparar a apresentação final da AP2.
+Na verificação realizada, não foram encontrados clientes duplicados entre os **3.985 registros utilizados na modelagem**.
 
-## Riscos
+Com essas verificações, não foi identificado um problema evidente de vazamento de dados que explique o resultado obtido.
+
+## Próximos Passos
+
+Para a continuidade do projeto até a entrega final do semestre, os próximos passos serão:
+
+- investigar formas de aumentar o recall da classe "Comprou novamente";
+- avaliar a necessidade de novos ajustes nas características utilizadas;
+- testar outros modelos de Machine Learning, quando aplicável;
+- avaliar a qualidade das previsões e recomendações;
+- desenvolver a etapa de recomendação de produtos a partir dos padrões identificados;
+- documentar os resultados finais do projeto.
+
+## Riscos e Limitações
 
 A qualidade das recomendações dependerá da quantidade e qualidade dos dados disponíveis.
 
-Também existe o risco de clientes ou produtos possuírem poucas informações, dificultando a identificação de padrões.
+O modelo atual ainda possui recall relativamente baixo para a classe "Comprou novamente", deixando 188 clientes que realmente recompraram sem identificação.
+
+Também existe o risco de clientes possuírem poucas informações históricas, dificultando a identificação de padrões.
 
 Outro ponto é que a base representa uma empresa específica de varejo online. Portanto, os padrões encontrados podem não representar todos os consumidores de comércio eletrônico.
 
@@ -402,17 +391,19 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [x] Agrupar os países em `Reino Unido` e `Outros`.
 - [x] Ajustar a transformação das variáveis categóricas para ocorrer após a separação entre treino e teste.
 - [x] Testar uma segunda Árvore de Decisão com profundidade diferente.
-- [x] Avaliar precisão e recall do modelo principal.
-- [x] Avaliar accuracy, precision, recall e F1-score.
+- [x] Avaliar precisão, recall e F1-score.
 - [x] Gerar e interpretar a matriz de confusão.
 - [x] Escolher e justificar a métrica principal.
-- [x] Avaliar possível overfitting.
-- [x] Verificar duplicação de clientes.
-- [x] Verificar possíveis fontes de vazamento de dados.
-- [x] Preparar o esboço dos slides da Atividade 10.
-- [x] Preparar a apresentação dos resultados.
-- [ ] Aprimorar o modelo de recomendação.
-- [ ] Testar outros modelos de Machine Learning, quando aplicável.
+- [x] Comparar treino e teste para avaliar overfitting.
+- [x] Verificar possíveis problemas de vazamento de dados.
+- [x] Preparar os resultados para a AP2.
+- [x] Atualizar o notebook da Atividade 10.
+- [x] Preparar os slides da AP2.
+- [ ] Adicionar `dados_tratados.csv` ao repositório.
+- [ ] Adicionar `Limpeza.ipynb` ao repositório.
+- [ ] Adicionar as figuras exportadas ao repositório.
+- [ ] Testar possíveis melhorias no recall.
+- [ ] Avançar para a etapa de recomendação de produtos.
 - [ ] Avaliar a qualidade das recomendações.
 - [ ] Documentar os resultados finais.
 - [ ] Desenvolver o algoritmo de recomendação de produtos.
