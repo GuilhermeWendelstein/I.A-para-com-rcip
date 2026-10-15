@@ -407,3 +407,10 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [ ] Avaliar a qualidade das recomendações.
 - [ ] Documentar os resultados finais.
 - [ ] Desenvolver o algoritmo de recomendação de produtos.
+ ## Revisão técnica e planejamento da AS
+
+A revisão técnica da AP2 identificou pontos positivos e limitações no modelo atual do SmartShop AI. A Árvore de Decisão obteve acurácia de 72,40%, superando o baseline de 61,61%. Entretanto, o recall de 38,56% para a classe "Comprou novamente" e os 188 falsos negativos mostram que ainda existem oportunidades de melhoria.
+
+O feedback da apresentação também destacou a necessidade de aprofundar o domínio dos conceitos técnicos e a capacidade de explicar as decisões tomadas durante o desenvolvimento.
+
+As próximas etapas incluem testar novas configurações do modelo, investigar características adicionais, comparar os resultados dos experimentos e desenvolver a etapa de recomendação de produtos. Também serão finalizados o notebook, a documentação, o relatório e as evidências da AS.
