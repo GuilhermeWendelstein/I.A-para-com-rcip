@@ -1,4 +1,4 @@
-qqqqqqqqqqqqqqq# Sistema Inteligente de Recomendação de Produtos
+# Sistema Inteligente de Recomendação de Produtos
 
 ## Descrição do Problema
 
