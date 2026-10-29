@@ -1,4 +1,4 @@
-# Sistema Inteligente de Recomendação de Produtos
+qqqqqqqqqqqqqqq# Sistema Inteligente de Recomendação de Produtos
 
 ## Descrição do Problema
 
@@ -399,8 +399,8 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [x] Preparar os resultados para a AP2.
 - [x] Atualizar o notebook da Atividade 10.
 - [x] Preparar os slides da AP2.
-- [ ] Adicionar `dados_tratados.csv` ao repositório.
-- [ ] Adicionar `Limpeza.ipynb` ao repositório.
+- [x] Adicionar `dados_tratados.csv` ao repositório.
+- [x] Adicionar `Limpeza.ipynb` ao repositório.
 - [ ] Adicionar as figuras exportadas ao repositório.
 - [ ] Testar possíveis melhorias no recall.
 - [ ] Avançar para a etapa de recomendação de produtos.
