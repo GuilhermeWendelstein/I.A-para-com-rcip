@@ -407,10 +407,80 @@ Outro ponto é que a base representa uma empresa específica de varejo online. P
 - [ ] Avaliar a qualidade das recomendações.
 - [ ] Documentar os resultados finais.
 - [ ] Desenvolver o algoritmo de recomendação de produtos.
- ## Revisão técnica e planejamento da AS
+
+## Revisão técnica e planejamento da AS
 
 A revisão técnica da AP2 identificou pontos positivos e limitações no modelo atual do SmartShop AI. A Árvore de Decisão obteve acurácia de 72,40%, superando o baseline de 61,61%. Entretanto, o recall de 38,56% para a classe "Comprou novamente" e os 188 falsos negativos mostram que ainda existem oportunidades de melhoria.
 
 O feedback da apresentação também destacou a necessidade de aprofundar o domínio dos conceitos técnicos e a capacidade de explicar as decisões tomadas durante o desenvolvimento.
 
 As próximas etapas incluem testar novas configurações do modelo, investigar características adicionais, comparar os resultados dos experimentos e desenvolver a etapa de recomendação de produtos. Também serão finalizados o notebook, a documentação, o relatório e as evidências da AS.
+
+# Atividade 12 — Análise complementar com agrupamento
+
+## Objetivo
+
+A Atividade 12 complementa o classificador supervisionado desenvolvido anteriormente com uma análise exploratória de perfis de clientes. A pergunta investigada foi se existem grupos de clientes com comportamentos de compra diferentes e se esses perfis apresentam diferenças na recompra futura.
+
+A análise utiliza **K-means** e não substitui o modelo de classificação nem constitui, por si só, um algoritmo de recomendação de produtos.
+
+## Arquivos da atividade
+
+- [Notebook da Atividade 12 — análise complementar](Atividade12_Analise_Complementar.ipynb)
+- [Base tratada utilizada pelo notebook](dados_tratados.csv)
+
+O notebook contém as etapas de preparação, comparação do número de grupos, visualizações, interpretação dos perfis e discussão das limitações. Os resultados e gráficos estão registrados nas saídas do notebook executado.
+
+## Metodologia
+
+A análise parte da base tratada, com **392.692 registros e 8 colunas**, que contém **4.338 clientes identificados**. Para preservar a lógica temporal do projeto, foi utilizado o percentil 80 das datas como ponto de corte:
+
+- **Data de corte:** 01/11/2011 15:55;
+- **Registros anteriores ao corte:** 314.183;
+- **Registros posteriores ao corte:** 78.509;
+- **Clientes utilizados na segmentação:** 3.985.
+
+As características dos clientes foram calculadas somente com compras anteriores ao corte. Foram utilizadas quatro variáveis: quantidade total comprada, preço médio, quantidade de pedidos e recência. O identificador `CustomerID`, as datas brutas, o país e a variável de recompra futura não foram usados para formar os grupos.
+
+Foi aplicada transformação `log1p` à quantidade total, ao preço médio e ao número de pedidos; em seguida, as quatro características foram padronizadas com `StandardScaler`. A presença do cliente no período posterior foi usada somente depois da formação dos grupos, para descrever a recompra futura e comparar os perfis.
+
+## Escolha do número de grupos
+
+Foram comparadas soluções de **2 a 6 grupos**, usando a inércia (método do cotovelo) e o coeficiente de silhueta.
+
+| Número de grupos (k) | Coeficiente de silhueta |
+|---:|---:|
+| 2 | 0,312 |
+| 3 | 0,300 |
+| 4 | 0,307 |
+| 5 | 0,260 |
+| 6 | 0,257 |
+
+Foi escolhida a solução com **k = 4** para a exploração dos perfis, priorizando a possibilidade de interpretar quatro grupos no contexto do negócio. Essa escolha não significa que k=4 seja matematicamente superior: a maior silhueta observada foi a de k=2. A decisão deve, portanto, ser entendida como exploratória e sujeita a revisão.
+
+## Interpretação e valor para o projeto
+
+Os grupos apresentaram diferenças nas características de volume comprado, preço médio, frequência de pedidos e recência. A taxa de recompra futura também variou entre os grupos, indicando que a segmentação pode ajudar a formular hipóteses sobre o comportamento dos clientes e possíveis estratégias de relacionamento.
+
+Esse resultado complementa o classificador binário da Atividade 10 ao resumir perfis comportamentais, em vez de apenas prever se um cliente fará uma nova compra. Entretanto, as diferenças observadas são descritivas: não demonstram causalidade, não provam que uma campanha terá resultado e não identificam diretamente qual produto deve ser recomendado.
+
+## Limitações
+
+- O K-means é sensível às variáveis selecionadas, à escala dos dados e ao número de grupos.
+- Os valores de silhueta foram modestos; k=2 apresentou o maior resultado entre as soluções testadas.
+- A transformação logarítmica reduz, mas não elimina, a influência de valores extremos.
+- O preço médio não representa o gasto total do cliente.
+- O indicador de recompra verifica somente se o cliente aparece no período futuro; não mede o valor gasto, a quantidade comprada nem a satisfação.
+- A base representa um período histórico limitado, de 2010 a 2011, e pode não refletir o comportamento atual.
+- Os nomes atribuídos aos perfis são interpretações humanas simplificadas, não categorias produzidas automaticamente pelo algoritmo.
+- A segmentação ainda não é um sistema de recomendação de produtos e não comprova aumento de vendas.
+
+## Conclusão da Atividade 12
+
+A análise encontrou quatro perfis exploratórios e diferenças de comportamento entre eles, incluindo variações na taxa de recompra futura. A segmentação pode ser utilizada como ponto de partida para novas investigações e para complementar a análise supervisionada já realizada. Antes de transformar esses resultados em ações comerciais, será necessário validar os perfis e avaliar as recomendações em uma etapa própria.
+
+**Declaração de uso de IA:** ChatGPT foi utilizado como apoio à organização do notebook e à redação inicial. O estudante deve conferir o código, as saídas e as interpretações, garantindo que compreende e valida os resultados apresentados.
+
+## Atualização do escopo
+
+Com a Atividade 12, o projeto passa a incluir uma análise complementar não supervisionada com K-means, comparação de soluções de agrupamento, visualizações dos perfis e discussão da relação descritiva entre os grupos e a recompra futura. A implementação e avaliação de um algoritmo efetivo de recomendação de produtos continuam como etapas futuras.
