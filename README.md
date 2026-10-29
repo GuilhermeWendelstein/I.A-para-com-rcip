@@ -484,3 +484,106 @@ A análise encontrou quatro perfis exploratórios e diferenças de comportamento
 ## Atualização do escopo
 
 Com a Atividade 12, o projeto passa a incluir uma análise complementar não supervisionada com K-means, comparação de soluções de agrupamento, visualizações dos perfis e discussão da relação descritiva entre os grupos e a recompra futura. A implementação e avaliação de um algoritmo efetivo de recomendação de produtos continuam como etapas futuras.
+
+# Atividade 13 — Experimento com rede neural
+
+## Objetivo
+
+A Atividade 13 amplia os experimentos de Machine Learning do SmartShop AI com uma rede neural para prever se um cliente realizará uma nova compra. O modelo é comparado ao baseline e à Árvore de Decisão de profundidade 5, utilizando a mesma divisão entre treino e teste.
+
+O objetivo é verificar se a rede neural consegue melhorar a identificação dos clientes que realmente voltam a comprar, considerando principalmente o recall da classe positiva.
+
+## Arquivos da atividade
+
+- [Notebook da Atividade 13 — experimento com rede neural](Atividade13_SmartShopAI.ipynb)
+- [Base tratada utilizada pelo notebook](dados_tratados.csv)
+
+O notebook contém o treinamento da rede neural, as métricas de avaliação, a comparação com os modelos anteriores e a interpretação dos resultados. Para executar o notebook no Google Colab, o arquivo `dados_tratados.csv` também precisa estar disponível no ambiente.
+
+## Metodologia
+
+Foi utilizado o `MLPClassifier`, da biblioteca scikit-learn, com duas camadas ocultas contendo 16 e 8 neurônios, respectivamente, e função de ativação ReLU.
+
+A rede neural foi implementada em um `Pipeline` com `StandardScaler`. Dessa forma, a padronização é ajustada utilizando somente os dados de treinamento e depois aplicada ao conjunto de teste, evitando que informações do teste influenciem o ajuste do escalonador.
+
+O treinamento foi configurado para até 500 iterações, com `early_stopping=True` e `n_iter_no_change=20`, permitindo interromper o treinamento quando o desempenho de validação deixa de melhorar.
+
+A comparação utiliza os mesmos conjuntos de treino e teste empregados na avaliação da Árvore de Decisão. A principal métrica continua sendo o recall da classe **"Comprou novamente"**, pois representa a proporção dos clientes que realmente recompraram e que foram identificados pelo modelo.
+
+## Resultados
+
+Os resultados registrados no notebook foram:
+
+| Modelo | Acurácia | Precisão da classe positiva | Recall da classe positiva | F1-score da classe positiva |
+|---|---:|---:|---:|---:|
+| Baseline | 61,61% | 0,00% | 0,00% | 0,0000 |
+| Árvore de Decisão — profundidade 5 | 72,40% | 78,67% | 38,56% | 0,5175 |
+| Rede neural MLP — camadas (16, 8) | 73,40% | 73,98% | 47,39% | 0,5777 |
+
+Nesta execução, a rede neural apresentou acurácia de **73,40%**, enquanto a Árvore de Decisão apresentou **72,40%** e o baseline, **61,61%**.
+
+O recall da classe positiva aumentou de **38,56%** na Árvore de Decisão para **47,39%** na rede neural, uma diferença de **8,83 pontos percentuais**.
+
+A precisão da rede neural foi de **73,98%**, abaixo dos **78,67%** da Árvore de Decisão. Isso indica que a rede neural identificou uma parcela maior dos clientes que realmente recompraram, mas teve uma proporção menor de acertos entre as previsões positivas.
+
+O F1-score da rede neural foi de **0,5777**, superior ao valor aproximado de **0,5175** da Árvore de Decisão.
+
+## Desempenho no treino e no teste
+
+| Conjunto | Acurácia | Precisão da classe positiva | Recall da classe positiva | F1-score da classe positiva |
+|---|---:|---:|---:|---:|
+| Treino | 71,68% | 71,49% | 43,63% | 0,5419 |
+| Teste | 73,40% | 73,98% | 47,39% | 0,5777 |
+
+As métricas do conjunto de teste ficaram próximas ou acima das métricas de treino nesta execução. Isso não indica um sinal evidente de overfitting no experimento registrado, mas não comprova que o problema esteja ausente em outras divisões dos dados.
+
+## Convergência e dificuldades técnicas
+
+A rede neural foi treinada em **61 iterações**, dentro do limite máximo de 500. Nesta execução, não foi emitido `ConvergenceWarning`.
+
+A opção `early_stopping=True` permitiu interromper o treinamento antes de atingir o limite máximo de iterações.
+
+Uma decisão técnica importante foi utilizar o `StandardScaler` dentro do `Pipeline`, garantindo que os parâmetros da padronização fossem aprendidos apenas com os dados de treino. Também foi mantida a mesma divisão entre treino e teste utilizada na comparação com a Árvore de Decisão.
+
+## Interpretação dos resultados
+
+Nesta divisão dos dados, a rede neural apresentou resultados melhores que a Árvore de Decisão em acurácia, recall e F1-score da classe positiva.
+
+Uma hipótese técnica é que a rede neural tenha conseguido aprender combinações não lineares entre as características utilizadas para representar os clientes. Entretanto, essa explicação é uma hipótese, não uma causa comprovada pelos resultados.
+
+Apesar da melhora, o recall ficou em **47,39%**, o que significa que o modelo ainda não identifica mais da metade dos clientes que realmente voltam a comprar. Portanto, ainda existe espaço para melhorias.
+
+## Decisão sobre o uso no projeto final
+
+A rede neural será mantida como candidata para o projeto final, sem descartar a Árvore de Decisão.
+
+O MLP apresentou resultados superiores nesta execução para acurácia, recall e F1-score. Entretanto, a Árvore de Decisão continua sendo uma alternativa mais simples de interpretar e apresentou maior precisão para a classe positiva.
+
+A decisão definitiva deverá considerar novos experimentos, a estabilidade das métricas e o impacto dos falsos positivos e falsos negativos no contexto do negócio.
+
+Também é importante destacar que prever a recompra de um cliente não equivale, por si só, a recomendar produtos específicos. A classificação de recompra é uma etapa de análise do comportamento dos clientes e ainda precisa ser conectada ao algoritmo de recomendação de produtos previsto no projeto.
+
+## Limitações
+
+- A comparação foi realizada com uma única divisão de treino e teste.
+- Foi avaliada uma configuração inicial da rede neural, sem uma busca extensa de hiperparâmetros.
+- O recall da rede neural ainda é inferior a 50%, indicando que muitos clientes que recompram continuam sem ser identificados.
+- A rede neural é menos interpretável do que a Árvore de Decisão.
+- Os resultados não garantem desempenho semelhante em outros períodos ou em outras bases de clientes.
+- O experimento prevê recompra, mas não recomenda diretamente produtos específicos.
+
+## Conclusão da Atividade 13
+
+A rede neural MLP, utilizando `StandardScaler` e as mesmas divisões de treino e teste da Árvore de Decisão, apresentou acurácia de **73,40%** e recall de **47,39%** para a classe "Comprou novamente".
+
+Os resultados foram superiores aos da Árvore de Decisão nesta execução, principalmente na identificação de clientes que voltam a comprar. Porém, o recall ainda é limitado e a precisão foi um pouco menor do que a da árvore.
+
+A rede neural será mantida como candidata para o projeto final, enquanto a Árvore de Decisão continuará como referência interpretável. Novos experimentos serão necessários antes de definir definitivamente qual modelo será utilizado.
+
+**Declaração de uso de IA:** O ChatGPT foi utilizado como apoio à organização da documentação e à estruturação da análise. O código, as saídas e as interpretações devem ser conferidos pelo estudante, que é responsável por compreender e validar os resultados apresentados.
+
+## Atualização do escopo
+
+Com a Atividade 13, o projeto passa a incluir um experimento com rede neural MLP, padronização por `StandardScaler`, comparação com baseline e Árvore de Decisão, análise do desempenho em treino e teste e discussão de convergência, overfitting, limitações e uso potencial no projeto final.
+
+A implementação e avaliação de um algoritmo efetivo de recomendação de produtos continuam como etapas futuras.
