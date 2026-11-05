@@ -587,3 +587,6 @@ A rede neural será mantida como candidata para o projeto final, enquanto a Árv
 Com a Atividade 13, o projeto passa a incluir um experimento com rede neural MLP, padronização por `StandardScaler`, comparação com baseline e Árvore de Decisão, análise do desempenho em treino e teste e discussão de convergência, overfitting, limitações e uso potencial no projeto final.
 
 A implementação e avaliação de um algoritmo efetivo de recomendação de produtos continuam como etapas futuras.
+## Atividade 14 — Análise de aplicação real de IA
+
+[Ver análise do sistema de recomendação da Amazon](Atividade14_Analise_Amazon.md)
