@@ -590,3 +590,40 @@ A implementação e avaliação de um algoritmo efetivo de recomendação de pro
 ## Atividade 14 — Análise de aplicação real de IA
 
 [Ver análise do sistema de recomendação da Amazon](Atividade14.md)
+
+## Resultados obtidos
+
+Foram realizados experimentos utilizando K-means, Decision Tree e MLPClassifier.
+
+| Modelo | Acurácia | Precisão | Recall | F1-score |
+|---|---:|---:|---:|---:|
+| Baseline | 61,61% | 0% | 0% | 0 |
+| Decision Tree | 72,40% | 78,67% | 38,56% | 0,5175 |
+| MLPClassifier | 73,40% | 73,98% | 47,39% | 0,5777 |
+
+O MLPClassifier apresentou o melhor recall e F1-score entre os modelos testados. Entretanto, ainda não identifica todos os clientes da classe positiva.
+
+## Limitações conhecidas
+
+- A base representa um único contexto comercial.
+- Existem registros sem identificação de cliente.
+- O MLPClassifier ainda apresenta recall limitado.
+- A escolha de quatro clusters precisa de justificativa comercial mais aprofundada.
+- Os erros de classificação ainda precisam ser analisados por segmento.
+- O arquivo de dados tratados precisa estar disponível para facilitar a reprodução dos experimentos.
+- O projeto ainda não possui um mecanismo automático de recomendação de produtos.
+
+## Fonte dos dados
+
+Base Online Retail, disponibilizada pelo UCI Machine Learning Repository.
+
+https://archive.ics.uci.edu/dataset/352/online+retail
+
+## Próximas melhorias
+
+- Aprofundar a análise dos segmentos encontrados pelo K-means.
+- Investigar a distribuição dos falsos negativos entre os clusters.
+- Ajustar os limites de classificação dos modelos.
+- Melhorar o tratamento das variáveis categóricas.
+- Realizar validações adicionais e auditoria de desempenho por grupos.
+- Implementar e avaliar um sistema real de recomendação de produtos.
