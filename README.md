@@ -725,7 +725,7 @@ Os principais arquivos e notebooks do projeto são:
 | `Modelo_Atividade9.ipynb` | Desenvolvimento inicial do modelo de classificação. |
 | `Avaliação.ipynb` | Avaliação do modelo e análise das métricas. |
 | `Atividade12_Analise_Complementar.ipynb` | Segmentação de clientes com K-means. |
-| `Atividade13_SmartShopAI.ipynb` | Experimento com rede neural e análises complementares. |
+| `Atividade13_SmartShopAI_(2).ipynb` | Experimento com rede neural e análises complementares. |
 | `Atividade14.md` | Análise de uma aplicação real de Inteligência Artificial. |
 | `Atividade15_Relatorio_Critico_Final.md` | Relatório crítico final do projeto. |
 
